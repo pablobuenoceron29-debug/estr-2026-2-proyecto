@@ -16,8 +16,8 @@ su nota del proyecto es 0.0.
 
 | Nombre completo | Código | Correo institucional | Usuario de GitHub |
 |---|---|---|---|
-|  |  |  |  |
-|  |  |  |  |
+| Pablo Andrés Bueno Cerón | 9038949 | pablobueno2906@javerianacali.edu.co | pablobuenoceron29-debug |
+| Juan Eduardo Gómez Aguilar | 9024217 | juanegomeza@javerianacali.edu.co | Foxal72 |
 |  |  |  |  |
 
 **Escenario escogido:** (A inventario / B frecuencias / C turnos / D índice)
