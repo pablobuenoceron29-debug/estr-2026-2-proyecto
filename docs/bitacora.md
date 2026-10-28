@@ -1,12 +1,18 @@
 # Bitácora
 
-Va en `docs/`, como los informes.
+**[2026-10-28] - Sesión 1:** Análisis conceptual
 
-Una entrada por sesión de trabajo, con la fecha, quién trabajó, qué se
-hizo y qué quedó pendiente. La entrada más reciente va arriba.
 
-## 2026-__-__
+**Quienes:**
+  * Pablo Andres Bueno Ceron
+  * Juan Eduardo Gómez Aguilar
 
-- Quiénes:
-- Qué hicimos:
-- Qué quedó pendiente:
+**Trabajo realizado:**
+  * Implementación del método `encolar()` con aritmética modular.
+
+  * Creación de la plantilla inicial de `docs/informe-avance.md`.
+
+**Pendiente:**
+  * Redactar las citas del texto guía sobre el costo $O(1)$.
+
+  * Diseñar las pruebas de caso límite.
