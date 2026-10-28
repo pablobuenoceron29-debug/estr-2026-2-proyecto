@@ -53,9 +53,12 @@ Vamos a variar la cantidad de órdenes de entrada simulando ráfagas de llegada 
 
 | Caso | Entrada | Salida esperada | Salida obtenida |
 |---|---|---|---|
-| funcional 1 | LLEGA ana 2 - ATIENDE | ana | ana |
-| funcional 2 | LLEGA ana 2 - LLEGA beto 5 - ESPERAN | 2 | 2 |
-| funcional 3 | LLEGA ana 2 - LLEGA beto 5 - ATIENDE - ATIENDE - PROMEDIO | ana - beto - 3.0 | ana - beto - 3.0 |
+| funcional 1 | LLEGA ana 2 -> ATIENDE | ana | ana |
+| funcional 2 | LLEGA ana 2 -> LLEGA beto 5 -> ESPERAN | 2 | 2 |
+| funcional 3 | LLEGA ana 2 -> LLEGA beto 5 -> ATIENDE -> ATIENDE -> PROMEDIO | ana -> beto -> 3.0 | ana -> beto -> 3.0 |
+| funcional 4 | LLEGA elena 4 -> LLEGA fabio 2 -> ESPERAN -> ATIENDE -> PROMEDIO | 2 -> elena -> 3.0 | 2 -> elena -> 3.0 |
+| funcional 5 | LLEGA ana 2 -> LLEGA beto 5 -> ESPERAN -> ATIENDE -> ATIENDE -> ESPERAN -> PROMEDIO | 2 -> ana -> beto -> 0 -> 3.0 | 2 -> ana -> beto -> 0 -> 3.0 |
+| funcional 6 | LLEGA carlos 3 -> LLEGA diana 5 -> ATIENDE -> ATIENDE | carlos -> diana | carlos -> diana |
 | límite | ATIENDE (en inicio) | nadie espera | nadie espera |
 
 Para el caso límite escogimos la estructura vacía. Se simula el intento de ejecutar el comando ATIENDE cuando no hay ningún paciente registrado en la cola circular (frente y trasero indican que cantidad == 0). Esto es vital para comprobar que la lógica de la función desencolar() evalúa correctamente la condición !estaVacia() antes de intentar acceder a un índice de memoria inválido, controlando el flujo para imprimir el mensaje de contingencia esperado por el sistema.
