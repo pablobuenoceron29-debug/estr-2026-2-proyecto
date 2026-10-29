@@ -1,6 +1,6 @@
 # Bitácora
 
-**[2026-10-28] - Sesión 1:** Análisis conceptual
+## [2026-10-28] - Sesión 1: Análisis conceptual
 
 
 **Quienes:**
