@@ -35,3 +35,18 @@
 **Pendiente:**
 * Revisión final de formato del informe (ortografía y ecuaciones LaTeX).
 * Push del commit final antes de la hora límite.
+
+## [2026-10-30] - Sesión 3: Métodos base y destructor
+
+**Quiénes:**
+* Pablo Andres Bueno Ceron
+* Juan Eduardo Gómez Aguilar
+
+**Trabajo realizado:**
+* Implementación de los métodos de validación de estado de la cola circular (`estaVacia()` y `estaLlena()`).
+* Creación del destructor de la clase para asegurar la correcta liberación de la memoria dinámica.
+
+**Pendiente:**
+* Desarrollar el resto de los métodos principales del código (inserción, extracción y lógica del reloj).
+* Terminar de pulir temas pendientes en el informe de avance y añadir algunas agregaciones extra.
+* Aprovechar la extensión de la entrega (hasta el lunes) para organizar el código final y revisar detalles.
