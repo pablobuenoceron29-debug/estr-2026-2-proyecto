@@ -28,3 +28,22 @@ public:
         this->cantidad = 0;
     }
 }
+    ~ColaCircular() {
+        delete[] this->arreglo;
+    }
+
+    bool estaLlena() {
+        bool llena = false;
+        if (this->cantidad == this->capacidad) {
+            llena = true;
+        }
+        return llena;
+    }
+
+    bool estaVacia() {
+        bool vacia = false;
+        if (this->cantidad == 0) {
+            vacia = true;
+        }
+        return vacia;
+    }
