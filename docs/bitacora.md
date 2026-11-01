@@ -2,7 +2,6 @@
 
 ## [2026-10-28] - Sesión 1: Análisis conceptual
 
-
 **Quienes:**
   * Pablo Andres Bueno Ceron
   * Juan Eduardo Gómez Aguilar
@@ -36,6 +35,7 @@
 * Revisión final de formato del informe (ortografía y ecuaciones LaTeX).
 * Push del commit final antes de la hora límite.
 
+
 ## [2026-10-30] - Sesión 3: Métodos base y destructor
 
 **Quiénes:**
@@ -50,3 +50,18 @@
 * Desarrollar el resto de los métodos principales del código (inserción, extracción y lógica del reloj).
 * Terminar de pulir temas pendientes en el informe de avance y añadir algunas agregaciones extra.
 * Aprovechar la extensión de la entrega (hasta el lunes) para organizar el código final y revisar detalles.
+
+
+## [2026-10-31] - Sesión 4: Ajustes menores y comentarios guía
+
+**Quiénes:**
+* Juan Eduardo Gómez Aguilar
+
+**Trabajo realizado:**
+* Ajustes menores de formato en el archivo del código principal.
+* Adición de comentarios guía dentro del código para documentar brevemente el propósito de cada método.
+
+**Pendiente:**
+* Hacer una revisión exhaustiva del informe de avance (`docs/informe-avance.md`).
+* Terminar de verificar el funcionamiento completo del código con todos los casos de prueba.
+* Realizar la integración y preparación final del repositorio para la entrega.
