@@ -48,64 +48,39 @@ public:
         }
         return vacia;
     }
-
-// esto es para organizar la cola como montículo binario
-
-//mouskerramienta que usaremos más tarde
-
-void intercambiar(int& x, int& y) {
-    int temp = x;
-    x = y;
-    y = temp;
-}
-
-// Baja un elemento hasta su lugar
-
-void heapify(std::vector<int>& a, int n, int i) {
-    while (true) {
-        int mayor = i;
-        int izq = 2 * i + 1;
-        int der = 2 * i + 2;
-
-        if (izq < n && a[izq] > a[mayor]) mayor = izq;
-        if (der < n && a[der] > a[mayor]) mayor = der;
-
-        if (mayor == i) break;
-        intercambiar(a[i], a[mayor]);
-        i = mayor;
+    int obtenerCantidad() {
+        return this->cantidad;
     }
-}
-
-// Ordena la lista completa de menor a mayor
-
-void construirHeap(std::vector<int>& a) {
-    int n = a.size();
-    for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(a, n, i);
-}
-
-// Ordena la lista completa de menor a mayor
-
-void heapSort(std::vector<int>& a) {
-    int n = a.size();
-    construirHeap(a);
-    for (int i = n - 1; i > 0; i--) {
-        intercambiar(a[0], a[i]);
-        heapify(a, i, 0);
+    void encolar(Paciente p) {
+        if (!this->estaLlena()) {
+            this->trasero = (this->trasero + 1) % this->capacidad;
+            this->arreglo[this->trasero] = p;
+            this->cantidad++;
+        }
+        return;
     }
-}
+    Paciente desencolar() {
+        Paciente extraido;
+        extraido.nombre = "";
+        extraido.tiempoLlegada = -1;
 
-// Sube el nuevo valor hasta su lugar
-
-void insertarHeap(std::vector<int>& a, int valor) {
-    a.push_back(valor);
-    int i = a.size() - 1;
-
-    while (i > 0) {
-        int padre = (i - 1) / 2;
-        if (a[i] <= a[padre]) break;
-        intercambiar(a[i], a[padre]);
-        i = padre;
+        if (!this->estaVacia()) {
+            extraido = this->arreglo[this->frente];
+            this->frente = (this->frente + 1) % this->capacidad;
+            this->cantidad--;
+        }
+        return extraido;
     }
-}
+};
 
+int main() {
+    int numOrdenes = 0;
+    cin >> numOrdenes;
+
+    if (numOrdenes > 0) {
+        ColaCircular cola(numOrdenes);
+
+        int pacientesAtendidos = 0;
+        double sumaTiemposEspera = 0.0;
+
+        int reloj = 1; // El reloj avanza 1 unidad por cada orden
