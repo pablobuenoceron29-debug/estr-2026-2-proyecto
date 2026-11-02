@@ -72,7 +72,6 @@ public:
         return extraido;
     }
 };
-
 int main() {
     int numOrdenes = 0;
     cin >> numOrdenes;
@@ -84,3 +83,45 @@ int main() {
         double sumaTiemposEspera = 0.0;
 
         int reloj = 1; // El reloj avanza 1 unidad por cada orden
+        while (reloj <= numOrdenes) {
+            string orden;
+            cin >> orden;
+
+            if (orden == "LLEGA") {
+                string nombre;
+                int urgencia;
+                cin >> nombre >> urgencia;
+
+                Paciente nuevoPaciente;
+                nuevoPaciente.nombre = nombre;
+                nuevoPaciente.tiempoLlegada = reloj; 
+                cola.encolar(nuevoPaciente);
+            }
+            else if (orden == "ATIENDE") {
+                if (cola.estaVacia()) {
+                    cout << "nadie espera\n";
+                } else {
+                    Paciente p = cola.desencolar();
+                    // Tiempo de espera = Reloj actual (atención) - Reloj de registro
+                    int tiempoEspera = reloj - p.tiempoLlegada;
+                    sumaTiemposEspera += tiempoEspera;
+                    pacientesAtendidos++;
+                    cout << p.nombre << "\n";
+                }
+            }
+            else if (orden == "ESPERAN") {
+                cout << cola.obtenerCantidad() << "\n";
+            }
+            else if (orden == "PROMEDIO") {
+                if (pacientesAtendidos == 0) {
+                    cout << "0.0\n";
+                } else {
+                    double promedio = sumaTiemposEspera / pacientesAtendidos;
+                    cout << fixed << setprecision(1) << promedio << "\n";
+                }
+            }
+            reloj++;
+        }
+    }
+    return 0; // Único return de la función main
+}
