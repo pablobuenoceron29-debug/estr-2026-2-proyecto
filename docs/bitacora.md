@@ -81,3 +81,19 @@
 * Completar el procesamiento de las órdenes (`LLEGA`, `ATIENDE`, `ESPERAN`, `PROMEDIO`) dentro del ciclo principal del `main()`.
 * Realizar los retoque finales al informe (`docs/informe-avance.md`) antes de la entrega de mañana.
 * Correr la suite completa de casos de prueba y asegurar que la compilación no genere advertencias con `-Wall -Wextra`.
+
+
+## [2026-11-02] - Sesión 6: Pruebas físicas, correcciones finales y entrega
+
+**Quiénes:**
+* Pablo Andres Bueno Ceron
+* Juan Eduardo Gómez Aguilar
+
+**Trabajo realizado:**
+* Corrección de errores ortográficos, de redacción y de formato en el `docs/informe-avance.md`.
+* Inclusión de la justificación formal de complejidad $O(1)$ citando el texto guía (CLRS, Cap. 10) y corrección de las fórmulas matemáticas en LaTeX.
+* Generación de los 14 archivos físicos de prueba (`.in` y `.out`) y carga exitosa de los mismos dentro de la carpeta `datos/` del repositorio.
+* Verificación de la integración del código fuente en `codigo/principal.cpp` y validación de la estructura final del repositorio en GitHub.
+
+**Pendiente:**
+* Ninguno (Entrega del avance finalizada con éxito).
