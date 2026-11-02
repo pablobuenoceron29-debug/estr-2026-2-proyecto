@@ -20,10 +20,10 @@ su nota del proyecto es 0.0.
 | Juan Eduardo Gómez Aguilar | 9024217 | juanegomeza@javerianacali.edu.co | Foxal72 |
 |  |  |  |  |
 
-**Escenario escogido:** (C turnos)
+**Escenario escogido:** D. Turnos de una clínica
 
-- Estructura escrita desde cero:
-- Estructura de la biblioteca contra la que se compara:
+- Estructura escrita desde cero: Cola circular sobre arreglo (Avance) / Montículo binario (Final)
+- Estructura de la biblioteca contra la que se compara: priority_queue
 
 ## Lo primero
 
