@@ -1,11 +1,10 @@
 # Informe del avance
-En el informe se mostrara lo que se probo y los opstaculos que se tuvieron a la hora de realaizar el avance del proyecto.00
-## 1. El escenario
+En este informe se mostrará lo que se probó y los obstáculos que se tuvieron a la hora de realizar el avance del proyecto.
 
-El programa esta planteado para ser utilizado en una clinica, mas precisamente, un programa para organizar los turnos de los pacientes. Seria usado por la recepcion, para que con solo introducir los datos del paciente se incluya en la cola de atencion, a su vez el programa debe consumir muy pocos recursos para que la tecnologia del lugar no caiga, puestos a que es una hubicacion delicada a la hora de hacer tecnologia.
+## 1. El escenario
+El programa está planteado para ser utilizado en una clínica, más precisamente, como un sistema para organizar los turnos de los pacientes. Sería usado por la recepción para que, con solo introducir los datos del paciente, este se incluya en la cola de atención. A su vez, el programa debe consumir muy pocos recursos para que el sistema del lugar no colapse, puesto que es una ubicación delicada a la hora de gestionar tecnología.
 
 ## 2. Qué guarda la estructura y qué operaciones necesita
-
 | Operación | Qué hace | Precondición |
 | --- | --- | --- |
 | `encolar` | Inserta un nuevo paciente al final de la cola circular guardando su nombre y tiempo de llegada. | La cola no debe estar llena (`cantidad < capacidad`). |
@@ -15,16 +14,17 @@ El programa esta planteado para ser utilizado en una clinica, mas precisamente, 
 | `estaVacia` | Verifica si la cantidad actual de elementos es cero. | Ninguna. |
 
 ## 3. La estructura escogida y por qué
-
-Esta estructura se uso para la optimizacion de los recursos que consume el programa a la hora de realizar una accion, y la otra razon es que con permite organizar de mejor manera los turnos de los pacientes a la hora de agregar uno nuevo. 
+Esta estructura se usó porque permite organizar los turnos de los pacientes bajo un modelo estricto FIFO (First-In, First-Out) optimizando al máximo los recursos de la clínica. Al ser una cola circular, se reutilizan los espacios de memoria que van quedando libres al inicio del arreglo, lo que evita tener que desplazar los elementos restantes.
 
 Costos esperados, con $n$ el número de elementos:
 
-| Operación | Tiempo | Espacio |
-|---|---|---|
-| `encolar` | $O(1)$ | $O(1)$ |
-| `desencolar` | $O(1)$ | $O(1)$ |
-| `obtenerCantidad` | $O(1)$ | $O(1)$ |
+| Operación | Tiempo | Espacio | Razón del costo en el código |
+| :--- | :--- | :--- | :--- |
+| `encolar` | $O(1)$ | $O(1)$ | Acceso directo al índice. Se usa aritmética modular `(trasero + 1) % capacidad` para calcular la posición sin usar iteraciones. |
+| `desencolar` | $O(1)$ | $O(1)$ | Se extrae el elemento actual y el puntero avanza con la operación matemática `(frente + 1) % capacidad`, sin reacomodar el arreglo. |
+| `obtenerCantidad` | $O(1)$ | $O(1)$ | Retorno de valor inmediato. Se consulta directamente la variable estática `cantidad`. |
+
+> **Cita del texto guía:** Tal como se sustenta en CLRS (Cormen, Leiserson, Rivest, Stein), *Introduction to Algorithms, 4.ª ed.*, **Capítulo 10, Sección 10.1 (Stacks and queues)**, la implementación de una cola mediante un arreglo utilizando punteros de frente y trasero permite que las operaciones de inserción y eliminación eviten el desplazamiento de elementos, logrando que el tiempo de ejecución de cada operación sea estrictamente $O(1)$.
 
 El invariante de la estructura, como fórmula:
 
