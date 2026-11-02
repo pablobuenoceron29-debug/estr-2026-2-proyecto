@@ -65,3 +65,19 @@
 * Hacer una revisión exhaustiva del informe de avance (`docs/informe-avance.md`).
 * Terminar de verificar el funcionamiento completo del código con todos los casos de prueba.
 * Realizar la integración y preparación final del repositorio para la entrega.
+
+
+## [2026-11-01] - Sesión 5: Integración de operaciones clave y estructura del main
+
+**Quiénes:**
+* Pablo Andres Bueno Ceron
+
+**Trabajo realizado:**
+* Implementación de los métodos de inserción y extracción (`encolar()` y `desencolar()`) utilizando aritmética modular para garantizar la complejidad $O(1)$.
+* Adición del método `obtenerCantidad()` para la consulta directa de elementos en la cola en tiempo constante.
+* Estructuración inicial de la función `main()`, configurando la lectura del total de órdenes, la instanciación dinámica de la estructura y el control inicial del reloj interno.
+
+**Pendiente:**
+* Completar el procesamiento de las órdenes (`LLEGA`, `ATIENDE`, `ESPERAN`, `PROMEDIO`) dentro del ciclo principal del `main()`.
+* Realizar los retoque finales al informe (`docs/informe-avance.md`) antes de la entrega de mañana.
+* Correr la suite completa de casos de prueba y asegurar que la compilación no genere advertencias con `-Wall -Wextra`.
