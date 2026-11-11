@@ -97,3 +97,20 @@
 
 **Pendiente:**
 * Ninguno (Entrega del avance finalizada con éxito).
+
+
+## [2026-11-10] - Sesión 7 (Fase Final): Análisis de retroalimentación e introducción al Montículo Binario
+
+**Quiénes:**
+* Pablo Andrés Bueno Cerón
+* Juan Eduardo Gómez Aguilar
+
+**Trabajo realizado:**
+* **Análisis de la retroalimentación del Avance:** Revisamos los comentarios del profesor. Identificamos que el error de compilación (`make`) fue causado por una llave `}` mal ubicada en `principal.cpp:31`. Confirmamos que la lógica de la cola circular es correcta.
+* **Planeación de correcciones (Cola Circular):** Definimos los ajustes requeridos: corregir el error de sintaxis, almacenar la variable `urgencia` en el `struct Paciente` (ya que se estaba perdiendo), inicializar la capacidad de la cola para probar correctamente la aritmética modular, y actualizar la tabla de pruebas del informe (el caso `funcional3` debe dar `2.0` de espera).
+* **Investigación teórica (Montículo Binario):** Iniciamos el estudio de la estructura requerida para la entrega final. Comprendimos que el montículo priorizará a los pacientes por su nivel de urgencia (Max-Heap) utilizando representación en arreglo. Definimos las ecuaciones de navegación para la implementación: hijo izquierdo `2i+1`, hijo derecho `2i+2` y padre `(i-1)/2`. 
+
+**Pendiente:**
+* Separar la clase `ColaCircular` en sus propios archivos (`.h` y `.cpp`) para compartir la misma interfaz con el futuro montículo.
+* Modificar el código fuente de la entrega anterior para agregar la urgencia, remover la llave errónea y garantizar la compilación limpia con `make pruebas`.
+* Comenzar a programar la clase del montículo binario implementando los métodos de flotar (inserción) y hundir (extracción).
