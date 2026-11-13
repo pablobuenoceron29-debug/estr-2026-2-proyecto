@@ -6,70 +6,130 @@
 
 using namespace std;
 
-struct Paciente {
+class paciente {
+    private:
     string nombre;
-    int tiempoLlegada;
-    int prioridad;
+    int tiempoE;
+    int nivelA;
+    int promedio;
+    public:
+    paciente() : nombre(""), tiempoE(0), nivelA(1), promedio(0) {}
+    paciente(string n, int t, int ni){
+        nombre = n;
+        if (t < 0){
+            tiempoE = 0;
+        }
+        else{
+            tiempoE = t;
+        }
+        if (ni < 1){
+            nivelA = 1;
+        }
+        else{
+            if (ni > 5){
+                nivelA = 5;
+            }
+            else{
+                nivelA = ni;
+            }
+        }
+        
+        promedio = ((tiempoE+nivelA)/2);
+    }
+    //~paciente();
+    string getNombre(){
+        return nombre;
+    }
+    int getNivelA(){
+        return nivelA;
+    }
+    int getTiempoE(){
+        return tiempoE;
+    }
+    int getPromedio(){
+        return promedio;
+    }
 };
 
-class ColaCircular {
+class colaCircular
+{
 private:
-    Paciente* arreglo;
-    int capacidad;
+    paciente* arreglo;
     int frente;
-    int trasero;
-    int cantidad;
-
+    int final;
+    int capacidad;
+    int contador;
+    int pos(int i) { return (frente + i) % capacidad; }
 public:
-    ColaCircular(int capacidad) {
-        this->capacidad = capacidad;
-        this->arreglo = new Paciente[capacidad];
-        this->frente = 0;
-        this->trasero = -1;
-        this->cantidad = 0;
-    }
-}
-    ~ColaCircular() {
-        delete[] this->arreglo;
-    }
+    colaCircular(int tamano) {
+        capacidad = tamano;
+        arreglo = new paciente[capacidad];
+        frente = 0;
+        final = -1;
+        contador = 0;
+    };
+    ~colaCircular(){
+        delete[] arreglo;
+    };
+ void organizarMB() {
+        int n = contador;
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            int actual = i;
+            while (true) {
+                int izq = 2 * actual + 2; //si tu toc no es tan grande como el mio esto seria al revez, pero en realidad no afecta
+                int der = 2 * actual + 1;
+                int mayor = actual;
 
-    bool estaLlena() {
-        bool llena = false;
-        if (this->cantidad == this->capacidad) {
-            llena = true;
-        }
-        return llena;
-    }
+                if (izq < n && arreglo[pos(izq)].getPromedio() > arreglo[pos(mayor)].getPromedio())
+                    mayor = izq;
+                if (der < n && arreglo[pos(der)].getPromedio() > arreglo[pos(mayor)].getPromedio())
+                    mayor = der;
 
-    bool estaVacia() {
-        bool vacia = false;
-        if (this->cantidad == 0) {
-            vacia = true;
-        }
-        return vacia;
-    }
-    int obtenerCantidad() {
-        return this->cantidad;
-    }
-    void encolar(Paciente p) {
-        if (!this->estaLlena()) {
-            this->trasero = (this->trasero + 1) % this->capacidad;
-            this->arreglo[this->trasero] = p;
-            this->cantidad++;
-        }
-        return;
-    }
-    Paciente desencolar() {
-        Paciente extraido;
-        extraido.nombre = "";
-        extraido.tiempoLlegada = -1;
+                if (mayor == actual) break;
 
-        if (!this->estaVacia()) {
-            extraido = this->arreglo[this->frente];
-            this->frente = (this->frente + 1) % this->capacidad;
-            this->cantidad--;
+                swap(arreglo[pos(actual)], arreglo[pos(mayor)]);
+                actual = mayor;
+            }
         }
-        return extraido;
+    }
+    bool estaLlena(){
+        return contador == capacidad;
+    };
+    bool estaVacia(){
+        return contador == 0;
+    };
+    
+    void encolar(paciente valor) {
+        if (estaLlena()) {
+            cout << "ba llena" << endl;
+            return;
+        }
+        final = (final + 1) % capacidad;
+        arreglo[final] = valor;
+        contador++;
+        organizarMB(); 
+    }
+    
+    void desencolar() {
+        if (estaVacia()) {
+            cout << "va cia? preguntale a cia si va" << endl;
+            return;
+        }
+        cout << "se fue: " << arreglo[frente].getNombre() << endl;
+        frente = (frente + 1) % capacidad;
+        contador--;
+        organizarMB();
+    }
+    void mostrar() {
+        if (estaVacia()) {
+            cout << "va cia" << endl;
+            return;
+        }
+        cout << "elementos el la cola: ";
+        for (int i = 0; i < contador; i++) {
+            cout << arreglo[pos(i)].getNombre() << " (" << "Nivel de atencion: " << arreglo[pos(i)].getNivelA() << " - Tiempo esperado: " << arreglo[pos(i)].getTiempoE() << ") ";
+        }
+        cout << endl;
     }
 };
 int main() {
