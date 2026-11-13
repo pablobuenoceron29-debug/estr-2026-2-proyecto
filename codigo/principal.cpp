@@ -101,7 +101,7 @@ public:
     
     void encolar(paciente valor) {
         if (estaLlena()) {
-            cout << "ba llena" << endl;
+            cout << "la cola esta llena" << endl;
             return;
         }
         final = (final + 1) % capacidad;
@@ -112,7 +112,7 @@ public:
     
     void desencolar() {
         if (estaVacia()) {
-            cout << "va cia? preguntale a cia si va" << endl;
+            cout << "no hay nadie en la cola." << endl;
             return;
         }
         cout << "se fue: " << arreglo[frente].getNombre() << endl;
