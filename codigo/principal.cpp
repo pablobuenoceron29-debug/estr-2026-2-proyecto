@@ -1,8 +1,5 @@
-// Autores: Pablo Andres Bueno Ceron 9038949, Juan Eduardo Gómez Aguilar 9024217.
-// Punto de entrada del proyecto. Reemplacen este archivo por el suyo.
-#include <cstdio>
+
 #include <iostream>
-#include <iomanip> 
 
 using namespace std;
 
@@ -14,29 +11,31 @@ class paciente {
     int promedio;
     public:
     paciente() : nombre(""), tiempoE(0), nivelA(1), promedio(0) {}
-    paciente(string n, int t, int ni){
+    paciente(string n, int ni){
         nombre = n;
-        if (t < 0){
-            tiempoE = 0;
-        }
-        else{
-            tiempoE = t;
-        }
+        tiempoE = 0;
+        promedio = 1;
         if (ni < 1){
             nivelA = 1;
         }
         else{
             if (ni > 5){
                 nivelA = 5;
+                promedio = 5 + 0/2;
             }
             else{
                 nivelA = ni;
+                promedio = ni + 0/2;
             }
         }
         
-        promedio = ((tiempoE+nivelA)/2);
+
     }
     //~paciente();
+    void aumentarTiempo(){
+        tiempoE += 1;
+        promedio = (tiempoE + nivelA) / 2;
+    }
     string getNombre(){
         return nombre;
     }
@@ -55,21 +54,33 @@ class colaCircular
 {
 private:
     paciente* arreglo;
+    paciente* arregloAlternativo;
     int frente;
     int final;
     int capacidad;
     int contador;
     int pos(int i) { return (frente + i) % capacidad; }
+    double sumaEspera;
+    int atendidos;
+    double sumaEsperaAl;
+    int atendidosAl;
+
 public:
     colaCircular(int tamano) {
         capacidad = tamano;
         arreglo = new paciente[capacidad];
+        arregloAlternativo = new paciente[capacidad];
         frente = 0;
         final = -1;
         contador = 0;
+        sumaEspera = 0;
+        atendidos = 0;
+        sumaEsperaAl = 0;
+        atendidosAl = 0;
     };
     ~colaCircular(){
         delete[] arreglo;
+        delete[] arregloAlternativo;
     };
  void organizarMB() {
         int n = contador;
@@ -92,13 +103,31 @@ public:
             }
         }
     }
+    void promedio(){
+        float promedio;
+        float promedioAlternativo;
+        if (atendidos > 0) {
+            promedio = static_cast<float>(sumaEspera) / atendidos;
+            cout << "Promedio de espera(monticulo binario): " << promedio << endl;
+            promedioAlternativo = static_cast<float>(sumaEsperaAl) / atendidosAl;
+            cout << "Promedio de espera(cola circular): " << promedioAlternativo << endl;
+        }
+        else {
+            cout << "No se han atendido pacientes." << endl;
+        }
+    };
     bool estaLlena(){
         return contador == capacidad;
     };
     bool estaVacia(){
         return contador == 0;
     };
-    
+    void pasaTiempo(){
+        for (int i = 0; i < contador; i++) {
+            arreglo[pos(i)].aumentarTiempo();
+            arregloAlternativo[pos(i)].aumentarTiempo();
+        }
+    }
     void encolar(paciente valor) {
         if (estaLlena()) {
             cout << "la cola esta llena" << endl;
@@ -106,6 +135,7 @@ public:
         }
         final = (final + 1) % capacidad;
         arreglo[final] = valor;
+        arregloAlternativo[final] = valor;
         contador++;
         organizarMB(); 
     }
@@ -115,7 +145,15 @@ public:
             cout << "no hay nadie en la cola." << endl;
             return;
         }
-        cout << "se fue: " << arreglo[frente].getNombre() << endl;
+        cout << "se fue (monticulo binario): " << arreglo[frente].getNombre() << endl;
+        cout << "se fue (cola circular): " << arregloAlternativo[frente].getNombre() << endl;
+
+        sumaEspera += arreglo[frente].getTiempoE();
+        atendidos++;
+
+        sumaEsperaAl += arregloAlternativo[frente].getTiempoE();
+        atendidosAl++;
+
         frente = (frente + 1) % capacidad;
         contador--;
         organizarMB();
@@ -131,57 +169,45 @@ public:
         }
         cout << endl;
     }
+    void cuantos() {
+        cout << "Cantidad de pacientes en la cola: " << contador << endl;
+    }
 };
 int main() {
-    int numOrdenes = 0;
-    cin >> numOrdenes;
-
-    if (numOrdenes > 0) {
-        ColaCircular cola(numOrdenes);
-
-        int pacientesAtendidos = 0;
-        double sumaTiemposEspera = 0.0;
-
-        int reloj = 1; // El reloj avanza 1 unidad por cada orden
-        while (reloj <= numOrdenes) {
-            string orden;
-            cin >> orden;
-
-            if (orden == "LLEGA") {
-                string nombre;
-                int urgencia;
-                cin >> nombre >> urgencia;
-
-                Paciente nuevoPaciente;
-                nuevoPaciente.nombre = nombre;
-                nuevoPaciente.tiempoLlegada = reloj; 
-                cola.encolar(nuevoPaciente);
-            }
-            else if (orden == "ATIENDE") {
-                if (cola.estaVacia()) {
-                    cout << "nadie espera\n";
-                } else {
-                    Paciente p = cola.desencolar();
-                    // Tiempo de espera = Reloj actual (atención) - Reloj de registro
-                    int tiempoEspera = reloj - p.tiempoLlegada;
-                    sumaTiemposEspera += tiempoEspera;
-                    pacientesAtendidos++;
-                    cout << p.nombre << "\n";
-                }
-            }
-            else if (orden == "ESPERAN") {
-                cout << cola.obtenerCantidad() << "\n";
-            }
-            else if (orden == "PROMEDIO") {
-                if (pacientesAtendidos == 0) {
-                    cout << "0.0\n";
-                } else {
-                    double promedio = sumaTiemposEspera / pacientesAtendidos;
-                    cout << fixed << setprecision(1) << promedio << "\n";
-                }
-            }
-            reloj++;
+    int tamano;
+    cout << "Ingrese numero de ejecuciones: ";
+    cin >> tamano;
+    string eleccion;
+    string nombre;
+    int nivel;
+    cin >> eleccion;
+    colaCircular cola(5);
+    for (int i = 0; i < tamano; i++) {
+    
+        if (eleccion == "LLEGA" or eleccion == "llega") {
+            cin >> nombre;
+            cin >> nivel;
+            paciente p(nombre, nivel);
+            cola.encolar(p);
+            cola.pasaTiempo();
         }
+        else if (eleccion == "ATIENDE" or eleccion == "atiende") {
+            cola.desencolar();
+            cola.pasaTiempo();
+        }
+        else if (eleccion == "ESPERAN" or eleccion == "esperan") {
+            cola.cuantos();
+            cola.pasaTiempo();
+        }
+        else if (eleccion == "PROMEDIO" or eleccion == "promedio") {
+            cola.promedio();
+            cola.pasaTiempo();
+        }
+        else {
+            cout << "Opcion no valida" << endl;
+            i--;
+        }
+        cin >> eleccion;
     }
     return 0; // Único return de la función main
 }
