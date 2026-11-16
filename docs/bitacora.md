@@ -114,3 +114,41 @@
 * Separar la clase `ColaCircular` en sus propios archivos (`.h` y `.cpp`) para compartir la misma interfaz con el futuro montículo.
 * Modificar el código fuente de la entrega anterior para agregar la urgencia, remover la llave errónea y garantizar la compilación limpia con `make pruebas`.
 * Comenzar a programar la clase del montículo binario implementando los métodos de flotar (inserción) y hundir (extracción).
+
+
+## [2026-11-12] - Sesión 8 (Fase Final): Modularización de cabeceras e implementación del Montículo Binario
+
+**Quiénes:**
+
+* Pablo Andrés Bueno Cerón
+* Juan Eduardo Gómez Aguilar
+
+**Trabajo realizado:**
+
+* **Reestructuración modular en cabeceras independientes:** Eliminamos la llave de cierre errónea en `principal.cpp` y separamos las estructuras en archivos independientes dentro de `codigo/`: `Paciente.h` (incorporando el atributo `urgencia` junto a `nombre` y `tiempoLlegada`), `ColaCircular.h` y `MonticuloBinario.h`.
+* **Interfaz pública unificada:** Garantizamos que `ColaCircular` y `MonticuloBinario` expongan exactamente las mismas firmas (`encolar`, `desencolar`, `obtenerCantidad`, `estaLlena`, `estaVacia`) para permitir su intercambio limpio en `principal.cpp`.
+* **Reimplementación y verificación de `ColaCircular`:** Reconstruimos la cola circular sobre arreglo dinámico (`new Paciente[capacidad]`) verificando el comportamiento circular con capacidad acotada para comprobar la vuelta modular de los índices `(frente + 1) % capacidad` y `(trasero + 1) % capacidad`.
+* **Implementación desde cero de `MonticuloBinario`:** Programamos el Max-Heap sobre arreglo utilizando `tieneMayorPrioridad` (ordenando por mayor `urgencia` y desempatando por menor `tiempoLlegada`) y los métodos iterativos `flotar` (`sift-up`) y `hundir` (`sift-down`) en $O(\log n)$, cumpliendo estrictamente las restricciones de código del curso (sin `break`, `continue` ni múltiples `return`).
+
+**Pendiente:**
+
+* Actualizar los archivos de salida esperada en `datos/` (`funcional3.out`, `funcional5.out` y `funcional6.out`) para el comportamiento del montículo binario y validar con `make pruebas`.
+* Ejecutar los experimentos comparativos de rendimiento en `datos/experimentos.csv` y redactar el informe final completo en `docs/informe-final.md`.
+
+
+## [2026-11-16] - Sesión 9 (Fase Final): Validación con `make pruebas`, experimentos empíricos e Informe Final
+
+**Quiénes:**
+
+* Pablo Andrés Bueno Cerón
+* Juan Eduardo Gómez Aguilar
+
+**Trabajo realizado:**
+
+* **Actualización de casos de prueba y ejecución de `make pruebas`:** Corregimos el valor esperado de `datos/funcional3.out` a `2.0` y actualizamos `datos/funcional5.out` y `datos/funcional6.out` según el orden de prioridad del `MonticuloBinario`. Ejecutamos `make pruebas` en Git Bash compilando con `g++ -Wall -Wextra -O2`, obteniendo cero advertencias y estado **OK** en los 7 casos (`funcional1.in` a `funcional6.in` y `limite.in`).
+* **Mediciones experimentales (`datos/experimentos.csv`):** Ejecutamos pruebas de rendimiento en la misma máquina bajo `-O2` con `std::chrono::high_resolution_clock` sobre 5 tamaños crecientes ($n \in \{1000, 10000, 50000, 100000, 500000\}$) con carga mixta ($60\%$ llegadas, $40\%$ atenciones), comparando `ColaCircular` ($56.739\text{ ms}$ en $n = 500000$), `MonticuloBinario` ($922.076\text{ ms}$) y `std::priority_queue` ($508.705\text{ ms}$). Limpiamos los binarios y archivos temporales antes de subir al repositorio.
+* **Redacción del Informe Final (`docs/informe-final.md`):** Completamos todas las secciones según la plantilla oficial: modelado corregido, justificación de `ColaCircular` frente a lista enlazada y arreglo con desplazamiento, costos completos (incluyendo `estaLlena`, `estaVacia` y espacio $\Theta(\text{capacidad})$), demostraciones formales en cuatro partes con testigos $c$ y $k$ en LaTeX, diagramas estructurales en Mermaid, gráfica comparativa `xychart-beta` y citas a CLRS (Capítulos 6 y 10).
+
+**Pendiente:**
+
+* Realizar la sustentación.
